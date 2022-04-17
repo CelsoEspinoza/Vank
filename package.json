@@ -4,15 +4,19 @@
   "description": "Backend test fintech",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "new-migration": "knex migrate:make",
+    "migrate": "knex migrate:latest"
   },
   "author": "Celso Espinoza",
   "license": "ISC",
   "dependencies": {
-    "hapi": "17.5.2",
-    "objection": "1.2.2",
+    "boom": "^7.3.0",
     "dotenv": "6.0.0",
+    "hapi": "17.5.2",
+    "joi": "13.5.2",
     "knex": "0.15.2",
-    "mysql": "2.16.0"
+    "mysql": "2.16.0",
+    "objection": "1.2.2"
   }
 }
