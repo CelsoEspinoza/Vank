@@ -3,6 +3,7 @@
 const Hapi = require('hapi');
 const objection = require('./src/config/objection');
 const clientRoute = require('./src/api/clients/clients-create.route');
+const invoiceRoute = require('./src/api/invoice/invoice-retrieve.route');
 
 const initServer = async () => {
 	const options = {
@@ -25,6 +26,7 @@ const initServer = async () => {
 	});
 
 	server.route(clientRoute);
+	server.route(invoiceRoute);
     
 	await server.start();
 	console.log(`Server is running at ${server.info.uri}`);
