@@ -2,8 +2,10 @@
 
 const Hapi = require('hapi');
 const objection = require('./src/config/objection');
+const validateToken = require('./authentication');
+const AuthBearer = require('hapi-auth-bearer-token');
 const clientRoute = require('./src/api/clients/clients-create.route');
-const invoiceRoute = require('./src/api/invoice/invoice-retrieve.route');
+const invoiceRoute = require('./src/api/invoice/invoice-register.route');
 
 const initServer = async () => {
 	const options = {
@@ -23,6 +25,11 @@ const initServer = async () => {
 		handler: function (request, h) {
 			return 'OK';
 		}
+	});
+
+	await server.register(AuthBearer);
+	server.auth.strategy('token', 'bearer-access-token', {
+		validate: validateToken,
 	});
 
 	server.route(clientRoute);

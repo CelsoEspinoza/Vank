@@ -2,13 +2,14 @@
 
 const Boom = require('boom');
 const axios = require('axios');
-const Invoice = require('./../../models/Invoice');
+const Invoice = require('../../models/Invoice');
 const moment = require('moment');
 
 async function handler(request, h) {
 	try {
-		const url = "https://gist.githubusercontent.com/rogelio-meza-t/f70a484ec20b8ea43c67f95a58597c29/raw/41f289c605718e923fc1fad0539530e4d0413a90/invoices.csv";
-		const { data: invoices } = await axios.get(url);
+		const { id } = request.auth.credentials;
+		const { raw_url } = request.payload;
+		const { data: invoices } = await axios.get(raw_url);
 		const rows = invoices.split('\n');
 		const formatDate = (date) => {
 			if (date) {
@@ -16,11 +17,10 @@ async function handler(request, h) {
 			}
 			return null;
 		};
-		const rowsToInsert = rows.slice(1).map(row => {
+		const invoicesToInsert = rows.slice(1).map(row => {
 			const values = row.split(',');
-			return {
-				"client_id": 1,
-				"invoice_id": values[0],
+			const invoice = {
+				"client_id": id,
 				"vendor_id": values[1],
 				"invoice_number": values[2],
 				"invoice_date": formatDate(values[3]),
@@ -31,9 +31,13 @@ async function handler(request, h) {
 				"invoice_due_date": formatDate(values[8]),
 				"payment_date": formatDate(values[9]),
 				"currency": values[10]
+			};
+			if (values[0]) {
+				invoice.id = values[0];
 			}
+			return invoice;
 		});
-		const invoicesAdded = await Invoice.createMultiple(rowsToInsert);
+		const invoicesAdded = await Invoice.createMultiple(invoicesToInsert);
 		return invoicesAdded;
 	} catch (error) {
 		return Boom.badImplementation(error, error);

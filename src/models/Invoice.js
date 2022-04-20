@@ -8,7 +8,11 @@ class Client extends Model {
 	}
 
 	static createMultiple(data) {
-		return this.query().insertGraph(data);
+		const options = {
+			noDelete: true,
+			insertMissing: true,
+		}
+		return this.query().upsertGraph(data, options);
 	}
 }
 

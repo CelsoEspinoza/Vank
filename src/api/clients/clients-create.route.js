@@ -8,6 +8,7 @@ const route = {
 	method: 'POST',
 	handler,
 	options: {
+		auth: false,
 		validate: {
 			payload: {
 				company_name: Joi.string().required(),
