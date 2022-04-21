@@ -5,7 +5,8 @@ const objection = require('./src/config/objection');
 const validateToken = require('./authentication');
 const AuthBearer = require('hapi-auth-bearer-token');
 const clientRoute = require('./src/api/clients/clients-create.route');
-const invoiceRoute = require('./src/api/invoice/invoice-register.route');
+const invoiceRegisterRoute = require('./src/api/invoice/invoice-register.route');
+const invoiceRetrieveRoute = require('./src/api/invoice/invoice-retrieve.route');
 
 const initServer = async () => {
 	const options = {
@@ -33,7 +34,8 @@ const initServer = async () => {
 	});
 
 	server.route(clientRoute);
-	server.route(invoiceRoute);
+	server.route(invoiceRegisterRoute);
+	server.route(invoiceRetrieveRoute);
     
 	await server.start();
 	console.log(`Server is running at ${server.info.uri}`);
