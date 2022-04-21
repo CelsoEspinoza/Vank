@@ -1,6 +1,6 @@
 'use strict';
 
-const { Model } = require('objection');
+const { Model, raw } = require('objection');
 const moment = require('moment');
 
 class Client extends Model {
@@ -31,6 +31,17 @@ class Client extends Model {
 		}
 
 		return query;
+	}
+
+	static updateByClientId(client_id, currencyValueConvertion, newCurrency) {
+		return this.query()
+			.patch({ 
+				invoice_total: raw('invoice_total * ?', [currencyValueConvertion]),
+				payment_total: raw('payment_total * ?', [currencyValueConvertion]),
+				credit_total: raw('credit_total * ?', [currencyValueConvertion]),
+				currency: newCurrency
+			})
+			.where('client_id', client_id);
 	}
 }
 

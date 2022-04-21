@@ -22,6 +22,19 @@ class Client extends Model {
 	static create(data) {
 		return this.query().insert(data);
 	}
+
+	static update(id, data) {
+		return this.query()
+			.patch(data)
+			.where('id', id);
+	}
+
+	static getById(id) {
+		return this.query()
+			.select('id', 'company_name', 'currency')
+			.where('id', id)
+			.first();
+	}
 }
 
 module.exports = Client;

@@ -1,19 +1,16 @@
 'use strict';
 
-function authenticate(request, token) {
+const Client = require('./src/models/Client');
+
+async function authenticate(request, token) {
 	try {
-		let isValid = false;
 		// dummy authentication
 		const validToken = 'unique.valid.token.123';
 		if (token === validToken) {
-			isValid = true;
-			const credentials = {
-				id: 1,
-				company_name: 'CREA',
-				internal_code: '1',
-				currency: 'USD',
-			};
-			return { isValid, credentials };
+			// TODO implement a cache solution to bring client info
+			const client = await Client.getById(1);
+			console.log("adsfadsfasdf", client);
+			return { isValid: true, credentials: client };
 		}
 	} catch (error) {
 		console.log(`Error to validate token ${error}`);
