@@ -40,5 +40,3 @@ CURRENCY_CONVERTER_API_KEY=[API_KEY]
 - **npm run dev**: Runs locally
 - **npm run migrate**: Runs migrations
 - **npm run new-migration <migration-name>**: Creates a new migration file
-
-Note: To consume the endpoints we have a file Insomnia_Collection.yaml
