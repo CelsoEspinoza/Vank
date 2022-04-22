@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "e5ccfd37-9d4c-4797-bced-9f0251f6177d",
+		"name": "VANK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Register/update invoices",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer unique.valid.token.123",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"raw_url\": \"https://gist.githubusercontent.com/rogelio-meza-t/f70a484ec20b8ea43c67f95a58597c29/raw/41f289c605718e923fc1fad0539530e4d0413a90/invoices.csv\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/invoices",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"invoices"
+							]
+						},
+						"description": "Register and updates invoices got by a raw-url provided in the body.\nRegister: When invoice_id does not exist in table or is not brought.\nUpdates: When invoice_id exists in table."
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve invoices",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer unique.valid.token.123",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/invoices?vendor_id=99&invoice_date_start=2014-02-25&invoice_date_end=2015-02-25&currency=EUR",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"invoices"
+							],
+							"query": [
+								{
+									"key": "vendor_id",
+									"value": "99"
+								},
+								{
+									"key": "invoice_date_start",
+									"value": "2014-02-25"
+								},
+								{
+									"key": "invoice_date_end",
+									"value": "2015-02-25"
+								},
+								{
+									"key": "currency",
+									"value": "EUR"
+								}
+							]
+						},
+						"description": "Brings a list of invoices."
+					},
+					"response": []
+				},
+				{
+					"name": "Update invoice",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer unique.valid.token.123",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tax_id\": \"ABC124\",\n  \"currency\": \"USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/invoices",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"invoices"
+							]
+						},
+						"description": "Updates the tax_id and/or the currency of a client invoice."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "create client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"company_name\": \"XEPELIN\",\n  \"internal_code\": \"123457M\",\n  \"currency\": \"EUR\",\n  \"bank_registers\": [\n    123\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clients"
+							]
+						},
+						"description": "Public request to create new clients."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/health-check",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"health-check"
+					]
+				},
+				"description": "Validates the health check of the service."
+			},
+			"response": []
+		}
+	]
+}
