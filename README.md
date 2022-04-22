@@ -39,4 +39,4 @@ CURRENCY_CONVERTER_API_KEY=[API_KEY]
 ### Commands
 - **npm run dev**: Runs locally
 - **npm run migrate**: Runs migrations
-- **npm run new-migration <migration-name>**: Creates a new migration file
+- **npm run new-migration [migration-name]**: Creates a new migration file
